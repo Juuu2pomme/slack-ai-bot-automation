@@ -1,0 +1,1612 @@
+{
+    "name": "Slack AI Bot (YouTube Demo)",
+    "flow": [
+        {
+            "id": 1,
+            "module": "gateway:CustomWebHook",
+            "version": 1,
+            "parameters": {
+                "hook": 1875820,
+                "maxResults": 1
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 150
+                },
+                "restore": {
+                    "parameters": {
+                        "hook": {
+                            "data": {
+                                "editable": "true"
+                            },
+                            "label": "YouTube Demo AI Slackbot"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hook",
+                        "type": "hook:gateway-webhook",
+                        "label": "Webhook",
+                        "required": true
+                    },
+                    {
+                        "name": "maxResults",
+                        "type": "number",
+                        "label": "Maximum number of results"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 4,
+            "module": "airtable:ActionSearchRecords",
+            "version": 3,
+            "parameters": {
+                "__IMTCONN__": 3437007
+            },
+            "filter": {
+                "name": "",
+                "conditions": [
+                    [
+                        {
+                            "a": "{{1.event.bot_id}}",
+                            "o": "notexist"
+                        },
+                        {
+                            "a": "{{1.event.type}}",
+                            "b": "message",
+                            "o": "text:equal"
+                        },
+                        {
+                            "a": "{{1.event.subtype}}",
+                            "o": "notexist"
+                        }
+                    ]
+                ]
+            },
+            "mapper": {
+                "base": "appvDSbMMEHAPCowX",
+                "table": "tbleHA4oyzgynVdXv",
+                "fields": [
+                    "Assistant Thread ID"
+                ],
+                "formula": "AND({Thread Timestamp}!=\"\",{Thread Timestamp}=\"{{1.event.thread_ts}}\",{User}=\"{{1.event.user}}\")",
+                "maxRecords": "1",
+                "useColumnId": false
+            },
+            "metadata": {
+                "designer": {
+                    "x": 300,
+                    "y": 150
+                },
+                "restore": {
+                    "expect": {
+                        "base": {
+                            "mode": "chose",
+                            "label": "YouTube Demo AI Slack Bot"
+                        },
+                        "sort": {
+                            "mode": "chose"
+                        },
+                        "view": {
+                            "mode": "chose",
+                            "label": "Empty"
+                        },
+                        "table": {
+                            "mode": "chose",
+                            "label": "Table 1"
+                        },
+                        "fields": {
+                            "mode": "chose",
+                            "label": [
+                                "Assistant Thread ID"
+                            ]
+                        },
+                        "useColumnId": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "airtable3"
+                            },
+                            "label": "YouTube Demo Account (User ID: usrFzmF8Cp8dDFbjk)"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:airtable3,airtable2",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "base",
+                        "type": "select",
+                        "label": "Base",
+                        "required": true
+                    },
+                    {
+                        "name": "useColumnId",
+                        "type": "boolean",
+                        "label": "Use Column ID",
+                        "required": true
+                    },
+                    {
+                        "name": "base",
+                        "type": "select",
+                        "label": "Base",
+                        "required": true
+                    },
+                    {
+                        "name": "useColumnId",
+                        "type": "boolean",
+                        "label": "Use Column ID",
+                        "required": true
+                    },
+                    {
+                        "name": "table",
+                        "type": "select",
+                        "label": "Table",
+                        "required": true
+                    },
+                    {
+                        "name": "formula",
+                        "type": "text",
+                        "label": "Formula"
+                    },
+                    {
+                        "name": "maxRecords",
+                        "type": "integer",
+                        "label": "Limit"
+                    },
+                    {
+                        "name": "sort",
+                        "spec": [
+                            {
+                                "name": "field",
+                                "type": "select",
+                                "label": "Field",
+                                "dynamic": true,
+                                "options": []
+                            },
+                            {
+                                "name": "direction",
+                                "type": "select",
+                                "label": "Direction",
+                                "options": [
+                                    {
+                                        "label": "Descending",
+                                        "value": "desc"
+                                    },
+                                    {
+                                        "label": "Ascending",
+                                        "value": "asc"
+                                    }
+                                ]
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Sort"
+                    },
+                    {
+                        "name": "view",
+                        "type": "select",
+                        "label": "View"
+                    },
+                    {
+                        "name": "fields",
+                        "type": "select",
+                        "label": "Output Fields",
+                        "multiple": true
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "__IMTLENGTH__",
+                        "type": "uinteger",
+                        "label": "Total number of bundles"
+                    },
+                    {
+                        "name": "__IMTINDEX__",
+                        "type": "uinteger",
+                        "label": "Bundle order position"
+                    },
+                    {
+                        "name": "id",
+                        "type": "text",
+                        "label": "ID"
+                    },
+                    {
+                        "name": "createdTime",
+                        "type": "date",
+                        "label": "Created Time"
+                    },
+                    {
+                        "name": "Assistant Thread ID",
+                        "type": "text",
+                        "label": "Assistant Thread ID"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 5,
+            "module": "airtable:ActionCreateRecord",
+            "version": 3,
+            "parameters": {
+                "__IMTCONN__": 3437007
+            },
+            "mapper": {
+                "base": "appvDSbMMEHAPCowX",
+                "table": "tbleHA4oyzgynVdXv",
+                "record": {
+                    "fldAk51p77U9Cl98t": "{{1.event.team}}",
+                    "fldG3M1bT209XGda2": "{{1.event.type}}",
+                    "fldGQddi7zjPWUlW6": "{{4.`Assistant Thread ID`}}",
+                    "fldM7yToDVYZIIEWt": "{{1.event.client_msg_id}}",
+                    "fldMQGXCBjoStOGTT": "{{1.event.channel_type}}",
+                    "fldPrpS15wtPepyPz": "{{ifempty(1.event.thread_ts; 1.event.ts)}}",
+                    "fldWqsiOxnfrtEH4p": "{{1.event.text}}",
+                    "fldXSq9Tjh4cRXOBK": "{{1.event.channel}}",
+                    "fldhPqcl7lyMsf5Jo": "{{1.event.user}}",
+                    "fldsSLHBLuQXiV7Ci": "{{1.event.ts}}"
+                },
+                "typecast": false,
+                "useColumnId": false
+            },
+            "metadata": {
+                "designer": {
+                    "x": 600,
+                    "y": 150
+                },
+                "restore": {
+                    "expect": {
+                        "base": {
+                            "label": "YouTube Demo AI Slack Bot"
+                        },
+                        "table": {
+                            "label": "Table 1",
+                            "nested": [
+                                {
+                                    "name": "record",
+                                    "spec": [
+                                        {
+                                            "name": "fldWqsiOxnfrtEH4p",
+                                            "type": "text",
+                                            "label": "Message",
+                                            "multiline": true
+                                        },
+                                        {
+                                            "name": "fldhPqcl7lyMsf5Jo",
+                                            "type": "text",
+                                            "label": "User"
+                                        },
+                                        {
+                                            "name": "fldG3M1bT209XGda2",
+                                            "type": "text",
+                                            "label": "Type"
+                                        },
+                                        {
+                                            "name": "fldsSLHBLuQXiV7Ci",
+                                            "type": "text",
+                                            "label": "Timestamp"
+                                        },
+                                        {
+                                            "name": "fldPrpS15wtPepyPz",
+                                            "type": "text",
+                                            "label": "Thread Timestamp"
+                                        },
+                                        {
+                                            "name": "fldM7yToDVYZIIEWt",
+                                            "type": "text",
+                                            "label": "Client Message ID"
+                                        },
+                                        {
+                                            "name": "fldAk51p77U9Cl98t",
+                                            "type": "text",
+                                            "label": "Team"
+                                        },
+                                        {
+                                            "name": "fldXSq9Tjh4cRXOBK",
+                                            "type": "text",
+                                            "label": "Channel"
+                                        },
+                                        {
+                                            "name": "fldMQGXCBjoStOGTT",
+                                            "type": "text",
+                                            "label": "Channel Type"
+                                        },
+                                        {
+                                            "name": "fldGQddi7zjPWUlW6",
+                                            "type": "text",
+                                            "label": "Assistant Thread ID"
+                                        },
+                                        {
+                                            "name": "fldp2aqLvc9WEwmkA",
+                                            "type": "text",
+                                            "label": "Assistant Response",
+                                            "multiline": true
+                                        }
+                                    ],
+                                    "type": "collection",
+                                    "label": "Record"
+                                }
+                            ]
+                        },
+                        "typecast": {
+                            "mode": "chose"
+                        },
+                        "useColumnId": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "airtable3"
+                            },
+                            "label": "YouTube Demo Account (User ID: usrFzmF8Cp8dDFbjk)"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:airtable3,airtable2",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "base",
+                        "type": "select",
+                        "label": "Base",
+                        "required": true
+                    },
+                    {
+                        "name": "typecast",
+                        "type": "boolean",
+                        "label": "Smart links",
+                        "required": true
+                    },
+                    {
+                        "name": "useColumnId",
+                        "type": "boolean",
+                        "label": "Use Column ID",
+                        "required": true
+                    },
+                    {
+                        "name": "table",
+                        "type": "select",
+                        "label": "Table",
+                        "required": true
+                    },
+                    {
+                        "name": "record",
+                        "spec": [
+                            {
+                                "name": "fldWqsiOxnfrtEH4p",
+                                "type": "text",
+                                "label": "Message"
+                            },
+                            {
+                                "name": "fldhPqcl7lyMsf5Jo",
+                                "type": "text",
+                                "label": "User"
+                            },
+                            {
+                                "name": "fldG3M1bT209XGda2",
+                                "type": "text",
+                                "label": "Type"
+                            },
+                            {
+                                "name": "fldsSLHBLuQXiV7Ci",
+                                "type": "text",
+                                "label": "Timestamp"
+                            },
+                            {
+                                "name": "fldPrpS15wtPepyPz",
+                                "type": "text",
+                                "label": "Thread Timestamp"
+                            },
+                            {
+                                "name": "fldM7yToDVYZIIEWt",
+                                "type": "text",
+                                "label": "Client Message ID"
+                            },
+                            {
+                                "name": "fldAk51p77U9Cl98t",
+                                "type": "text",
+                                "label": "Team"
+                            },
+                            {
+                                "name": "fldXSq9Tjh4cRXOBK",
+                                "type": "text",
+                                "label": "Channel"
+                            },
+                            {
+                                "name": "fldMQGXCBjoStOGTT",
+                                "type": "text",
+                                "label": "Channel Type"
+                            },
+                            {
+                                "name": "fldGQddi7zjPWUlW6",
+                                "type": "text",
+                                "label": "Assistant Thread ID"
+                            },
+                            {
+                                "name": "fldp2aqLvc9WEwmkA",
+                                "type": "text",
+                                "label": "Assistant Response"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Record"
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "id",
+                        "type": "text",
+                        "label": "ID"
+                    },
+                    {
+                        "name": "createdTime",
+                        "type": "date",
+                        "label": "Created Time"
+                    },
+                    {
+                        "name": "Message ID",
+                        "type": "number",
+                        "label": "Message ID"
+                    },
+                    {
+                        "name": "Message",
+                        "type": "text",
+                        "label": "Message",
+                        "multiline": true
+                    },
+                    {
+                        "name": "User",
+                        "type": "text",
+                        "label": "User"
+                    },
+                    {
+                        "name": "Type",
+                        "type": "text",
+                        "label": "Type"
+                    },
+                    {
+                        "name": "Timestamp",
+                        "type": "text",
+                        "label": "Timestamp"
+                    },
+                    {
+                        "name": "Thread Timestamp",
+                        "type": "text",
+                        "label": "Thread Timestamp"
+                    },
+                    {
+                        "name": "Client Message ID",
+                        "type": "text",
+                        "label": "Client Message ID"
+                    },
+                    {
+                        "name": "Team",
+                        "type": "text",
+                        "label": "Team"
+                    },
+                    {
+                        "name": "Channel",
+                        "type": "text",
+                        "label": "Channel"
+                    },
+                    {
+                        "name": "Channel Type",
+                        "type": "text",
+                        "label": "Channel Type"
+                    },
+                    {
+                        "name": "Assistant Thread ID",
+                        "type": "text",
+                        "label": "Assistant Thread ID"
+                    },
+                    {
+                        "name": "Assistant Response",
+                        "type": "text",
+                        "label": "Assistant Response",
+                        "multiline": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 6,
+            "module": "slack:CreateMessage",
+            "version": 4,
+            "parameters": {
+                "__IMTCONN__": 3645358
+            },
+            "mapper": {
+                "text": "Hey <@{{1.event.user}}>, thanks, please give me a moment to respond...",
+                "parse": false,
+                "mrkdwn": true,
+                "channel": "{{1.event.channel}}",
+                "icon_url": "https://storage.googleapis.com/sgplabs-general-storage/Untitled%20design%20(2).png",
+                "username": "FFmpeg Assistant",
+                "thread_ts": "{{1.event.ts}}",
+                "channelWType": "manualy"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 900,
+                    "y": 150
+                },
+                "restore": {
+                    "expect": {
+                        "parse": {
+                            "mode": "chose"
+                        },
+                        "mrkdwn": {
+                            "mode": "chose"
+                        },
+                        "link_names": {
+                            "mode": "chose"
+                        },
+                        "channelWType": {
+                            "label": "Enter manually"
+                        },
+                        "unfurl_links": {
+                            "mode": "chose"
+                        },
+                        "unfurl_media": {
+                            "mode": "chose"
+                        },
+                        "reply_broadcast": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "slack3"
+                            },
+                            "label": "My Slack (bot) connection (make)"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:slack2,slack3",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "channelWType",
+                        "type": "select",
+                        "label": "Enter a channel ID or name",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "manualy",
+                                "list"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "text",
+                        "type": "text",
+                        "label": "Text"
+                    },
+                    {
+                        "name": "blocks",
+                        "type": "text",
+                        "label": "Blocks"
+                    },
+                    {
+                        "name": "thread_ts",
+                        "type": "text",
+                        "label": "Thread message ID (time stamp)"
+                    },
+                    {
+                        "name": "reply_broadcast",
+                        "type": "boolean",
+                        "label": "Reply broadcast"
+                    },
+                    {
+                        "name": "link_names",
+                        "type": "boolean",
+                        "label": "Link names"
+                    },
+                    {
+                        "name": "parse",
+                        "type": "boolean",
+                        "label": "Parse message text"
+                    },
+                    {
+                        "name": "mrkdwn",
+                        "type": "boolean",
+                        "label": "Use markdown"
+                    },
+                    {
+                        "name": "unfurl_links",
+                        "type": "boolean",
+                        "label": "Unfurl primarily text-based content"
+                    },
+                    {
+                        "name": "unfurl_media",
+                        "type": "boolean",
+                        "label": "Unfurl media content"
+                    },
+                    {
+                        "name": "icon_emoji",
+                        "type": "text",
+                        "label": "Icon emoji"
+                    },
+                    {
+                        "name": "icon_url",
+                        "type": "url",
+                        "label": "Icon url"
+                    },
+                    {
+                        "name": "username",
+                        "type": "text",
+                        "label": "User name"
+                    },
+                    {
+                        "name": "channel",
+                        "type": "text",
+                        "label": "Channel ID or name",
+                        "required": true
+                    }
+                ],
+                "advanced": true
+            }
+        },
+        {
+            "id": 3,
+            "module": "openai-gpt-3:messageAssistantAdvanced",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 3644563
+            },
+            "mapper": {
+                "role": "user",
+                "message": "{{1.event.text}}",
+                "threadId": "{{4.`Assistant Thread ID`}}",
+                "assistantId": "asst_hH2Q1vhfajHhb1lzJ9ZDJB16"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 1200,
+                    "y": 150
+                },
+                "restore": {
+                    "expect": {
+                        "role": {
+                            "label": "User"
+                        },
+                        "model": {
+                            "mode": "chose"
+                        },
+                        "tools": {
+                            "mode": "chose"
+                        },
+                        "image_urls": {
+                            "mode": "chose"
+                        },
+                        "assistantId": {
+                            "mode": "chose",
+                            "label": "FFmpeg Compose Assistant (gpt-4o)",
+                            "nested": []
+                        },
+                        "image_files": {
+                            "mode": "chose"
+                        },
+                        "tool_choice": {
+                            "mode": "chose",
+                            "label": "Empty"
+                        },
+                        "response_format": {
+                            "mode": "chose",
+                            "label": "Empty"
+                        },
+                        "truncation_strategy": {
+                            "mode": "chose",
+                            "label": "Empty"
+                        },
+                        "file_search_resources": {
+                            "mode": "chose"
+                        },
+                        "code_interpreter_resources": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "openai-gpt-3"
+                            },
+                            "label": "ffmpeg_compose"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:openai-gpt-3",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "assistantId",
+                        "type": "select",
+                        "label": "Assistant",
+                        "required": true
+                    },
+                    {
+                        "name": "role",
+                        "type": "select",
+                        "label": "Role",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "user",
+                                "assistant"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "threadId",
+                        "type": "text",
+                        "label": "Thread ID"
+                    },
+                    {
+                        "name": "model",
+                        "type": "select",
+                        "label": "Model"
+                    },
+                    {
+                        "name": "tools",
+                        "type": "select",
+                        "label": "Tools",
+                        "multiple": true,
+                        "validate": {
+                            "enum": [
+                                "file_search",
+                                "code_interpreter"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "file_search_resources",
+                        "type": "select",
+                        "label": "File Search Resources"
+                    },
+                    {
+                        "name": "code_interpreter_resources",
+                        "type": "select",
+                        "label": "Code Interpreter Resources",
+                        "multiple": true,
+                        "validate": {
+                            "maxItems": 20
+                        }
+                    },
+                    {
+                        "name": "tool_choice",
+                        "type": "select",
+                        "label": "Tool Choice",
+                        "validate": {
+                            "enum": [
+                                "none",
+                                "auto",
+                                "required",
+                                "file_search",
+                                "code_interpreter",
+                                "function"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "instructions",
+                        "type": "text",
+                        "label": "Instructions"
+                    },
+                    {
+                        "name": "max_prompt_tokens",
+                        "type": "uinteger",
+                        "label": "Max Prompt Tokens"
+                    },
+                    {
+                        "name": "max_completion_tokens",
+                        "type": "uinteger",
+                        "label": "Max Completion Tokens"
+                    },
+                    {
+                        "name": "temperature",
+                        "type": "number",
+                        "label": "Temperature",
+                        "validate": {
+                            "max": 2,
+                            "min": 0
+                        }
+                    },
+                    {
+                        "name": "top_p",
+                        "type": "number",
+                        "label": "Top P",
+                        "validate": {
+                            "max": 1,
+                            "min": 0
+                        }
+                    },
+                    {
+                        "name": "response_format",
+                        "type": "select",
+                        "label": "Response Format",
+                        "validate": {
+                            "enum": [
+                                "auto",
+                                "json_object",
+                                "text"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "truncation_strategy",
+                        "type": "select",
+                        "label": "Truncation Strategy",
+                        "validate": {
+                            "enum": [
+                                "auto",
+                                "last_messages"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "message",
+                        "type": "text",
+                        "label": "Message",
+                        "required": true
+                    },
+                    {
+                        "name": "image_files",
+                        "type": "select",
+                        "label": "Image Files",
+                        "multiple": true
+                    },
+                    {
+                        "name": "image_urls",
+                        "spec": {
+                            "name": "value",
+                            "type": "url",
+                            "label": "Image URL",
+                            "required": true
+                        },
+                        "type": "array",
+                        "label": "Image URLs"
+                    },
+                    {
+                        "name": "assistantId",
+                        "type": "select",
+                        "label": "Assistant",
+                        "required": true
+                    },
+                    {
+                        "name": "role",
+                        "type": "select",
+                        "label": "Role",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "user",
+                                "assistant"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "threadId",
+                        "type": "text",
+                        "label": "Thread ID"
+                    },
+                    {
+                        "name": "model",
+                        "type": "select",
+                        "label": "Model"
+                    },
+                    {
+                        "name": "tools",
+                        "type": "select",
+                        "label": "Tools",
+                        "multiple": true,
+                        "validate": {
+                            "enum": [
+                                "file_search",
+                                "code_interpreter"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "file_search_resources",
+                        "type": "select",
+                        "label": "File Search Resources"
+                    },
+                    {
+                        "name": "code_interpreter_resources",
+                        "type": "select",
+                        "label": "Code Interpreter Resources",
+                        "multiple": true,
+                        "validate": {
+                            "maxItems": 20
+                        }
+                    },
+                    {
+                        "name": "tool_choice",
+                        "type": "select",
+                        "label": "Tool Choice",
+                        "validate": {
+                            "enum": [
+                                "none",
+                                "auto",
+                                "required",
+                                "file_search",
+                                "code_interpreter",
+                                "function"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "instructions",
+                        "type": "text",
+                        "label": "Instructions"
+                    },
+                    {
+                        "name": "max_prompt_tokens",
+                        "type": "uinteger",
+                        "label": "Max Prompt Tokens"
+                    },
+                    {
+                        "name": "max_completion_tokens",
+                        "type": "uinteger",
+                        "label": "Max Completion Tokens"
+                    },
+                    {
+                        "name": "temperature",
+                        "type": "number",
+                        "label": "Temperature",
+                        "validate": {
+                            "max": 2,
+                            "min": 0
+                        }
+                    },
+                    {
+                        "name": "top_p",
+                        "type": "number",
+                        "label": "Top P",
+                        "validate": {
+                            "max": 1,
+                            "min": 0
+                        }
+                    },
+                    {
+                        "name": "response_format",
+                        "type": "select",
+                        "label": "Response Format",
+                        "validate": {
+                            "enum": [
+                                "auto",
+                                "json_object",
+                                "text"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "truncation_strategy",
+                        "type": "select",
+                        "label": "Truncation Strategy",
+                        "validate": {
+                            "enum": [
+                                "auto",
+                                "last_messages"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "message",
+                        "type": "text",
+                        "label": "Message",
+                        "required": true
+                    },
+                    {
+                        "name": "image_files",
+                        "type": "select",
+                        "label": "Image Files",
+                        "multiple": true
+                    },
+                    {
+                        "name": "image_urls",
+                        "spec": {
+                            "name": "value",
+                            "type": "url",
+                            "label": "Image URL",
+                            "required": true
+                        },
+                        "type": "array",
+                        "label": "Image URLs"
+                    }
+                ]
+            },
+            "onerror": [
+                {
+                    "id": 9,
+                    "module": "slack:CreateMessage",
+                    "version": 4,
+                    "parameters": {
+                        "__IMTCONN__": 3645358
+                    },
+                    "mapper": {
+                        "text": "Sorry, we've encountered an error! please try again.",
+                        "parse": false,
+                        "mrkdwn": true,
+                        "channel": "{{1.event.channel}}",
+                        "icon_url": "https://storage.googleapis.com/sgplabs-general-storage/Untitled%20design%20(2).png",
+                        "username": "FFmpeg Assistant",
+                        "thread_ts": "{{1.event.ts}}",
+                        "channelWType": "manualy"
+                    },
+                    "metadata": {
+                        "designer": {
+                            "x": 1500,
+                            "y": 300
+                        },
+                        "restore": {
+                            "expect": {
+                                "parse": {
+                                    "mode": "chose"
+                                },
+                                "mrkdwn": {
+                                    "mode": "chose"
+                                },
+                                "link_names": {
+                                    "mode": "chose"
+                                },
+                                "channelWType": {
+                                    "label": "Enter manually"
+                                },
+                                "unfurl_links": {
+                                    "mode": "chose"
+                                },
+                                "unfurl_media": {
+                                    "mode": "chose"
+                                },
+                                "reply_broadcast": {
+                                    "mode": "chose"
+                                }
+                            },
+                            "parameters": {
+                                "__IMTCONN__": {
+                                    "data": {
+                                        "scoped": "true",
+                                        "connection": "slack3"
+                                    },
+                                    "label": "My Slack (bot) connection (make)"
+                                }
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "__IMTCONN__",
+                                "type": "account:slack2,slack3",
+                                "label": "Connection",
+                                "required": true
+                            }
+                        ],
+                        "expect": [
+                            {
+                                "name": "channelWType",
+                                "type": "select",
+                                "label": "Enter a channel ID or name",
+                                "required": true,
+                                "validate": {
+                                    "enum": [
+                                        "manualy",
+                                        "list"
+                                    ]
+                                }
+                            },
+                            {
+                                "name": "text",
+                                "type": "text",
+                                "label": "Text"
+                            },
+                            {
+                                "name": "blocks",
+                                "type": "text",
+                                "label": "Blocks"
+                            },
+                            {
+                                "name": "thread_ts",
+                                "type": "text",
+                                "label": "Thread message ID (time stamp)"
+                            },
+                            {
+                                "name": "reply_broadcast",
+                                "type": "boolean",
+                                "label": "Reply broadcast"
+                            },
+                            {
+                                "name": "link_names",
+                                "type": "boolean",
+                                "label": "Link names"
+                            },
+                            {
+                                "name": "parse",
+                                "type": "boolean",
+                                "label": "Parse message text"
+                            },
+                            {
+                                "name": "mrkdwn",
+                                "type": "boolean",
+                                "label": "Use markdown"
+                            },
+                            {
+                                "name": "unfurl_links",
+                                "type": "boolean",
+                                "label": "Unfurl primarily text-based content"
+                            },
+                            {
+                                "name": "unfurl_media",
+                                "type": "boolean",
+                                "label": "Unfurl media content"
+                            },
+                            {
+                                "name": "icon_emoji",
+                                "type": "text",
+                                "label": "Icon emoji"
+                            },
+                            {
+                                "name": "icon_url",
+                                "type": "url",
+                                "label": "Icon url"
+                            },
+                            {
+                                "name": "username",
+                                "type": "text",
+                                "label": "User name"
+                            },
+                            {
+                                "name": "channel",
+                                "type": "text",
+                                "label": "Channel ID or name",
+                                "required": true
+                            }
+                        ],
+                        "advanced": true
+                    }
+                },
+                {
+                    "id": 10,
+                    "module": "builtin:Ignore",
+                    "version": 1,
+                    "metadata": {
+                        "designer": {
+                            "x": 1800,
+                            "y": 300
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "module": "airtable:ActionUpdateRecords",
+            "version": 3,
+            "parameters": {
+                "__IMTCONN__": 3437007
+            },
+            "mapper": {
+                "id": "{{5.id}}",
+                "base": "appvDSbMMEHAPCowX",
+                "table": "tbleHA4oyzgynVdXv",
+                "record": {
+                    "fldGQddi7zjPWUlW6": "{{3.thread_id}}",
+                    "fldp2aqLvc9WEwmkA": "{{3.result}}"
+                },
+                "typecast": false,
+                "useColumnId": false
+            },
+            "metadata": {
+                "designer": {
+                    "x": 1500,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "base": {
+                            "label": "YouTube Demo AI Slack Bot"
+                        },
+                        "table": {
+                            "label": "Table 1"
+                        },
+                        "typecast": {
+                            "mode": "chose"
+                        },
+                        "useColumnId": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "airtable3"
+                            },
+                            "label": "YouTube Demo Account (User ID: usrFzmF8Cp8dDFbjk)"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:airtable3,airtable2",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "base",
+                        "type": "select",
+                        "label": "Base",
+                        "required": true
+                    },
+                    {
+                        "name": "typecast",
+                        "type": "boolean",
+                        "label": "Smart links",
+                        "required": true
+                    },
+                    {
+                        "name": "useColumnId",
+                        "type": "boolean",
+                        "label": "Use Column ID",
+                        "required": true
+                    },
+                    {
+                        "name": "table",
+                        "type": "select",
+                        "label": "Table",
+                        "required": true
+                    },
+                    {
+                        "name": "id",
+                        "type": "text",
+                        "label": "Record ID",
+                        "required": true
+                    },
+                    {
+                        "name": "record",
+                        "spec": [
+                            {
+                                "name": "fldWqsiOxnfrtEH4p",
+                                "type": "text",
+                                "label": "Message"
+                            },
+                            {
+                                "name": "fldhPqcl7lyMsf5Jo",
+                                "type": "text",
+                                "label": "User"
+                            },
+                            {
+                                "name": "fldG3M1bT209XGda2",
+                                "type": "text",
+                                "label": "Type"
+                            },
+                            {
+                                "name": "fldsSLHBLuQXiV7Ci",
+                                "type": "text",
+                                "label": "Timestamp"
+                            },
+                            {
+                                "name": "fldPrpS15wtPepyPz",
+                                "type": "text",
+                                "label": "Thread Timestamp"
+                            },
+                            {
+                                "name": "fldM7yToDVYZIIEWt",
+                                "type": "text",
+                                "label": "Client Message ID"
+                            },
+                            {
+                                "name": "fldAk51p77U9Cl98t",
+                                "type": "text",
+                                "label": "Team"
+                            },
+                            {
+                                "name": "fldXSq9Tjh4cRXOBK",
+                                "type": "text",
+                                "label": "Channel"
+                            },
+                            {
+                                "name": "fldMQGXCBjoStOGTT",
+                                "type": "text",
+                                "label": "Channel Type"
+                            },
+                            {
+                                "name": "fldGQddi7zjPWUlW6",
+                                "type": "text",
+                                "label": "Assistant Thread ID"
+                            },
+                            {
+                                "name": "fldp2aqLvc9WEwmkA",
+                                "type": "text",
+                                "label": "Assistant Response"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Record"
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "id",
+                        "type": "text",
+                        "label": "ID"
+                    },
+                    {
+                        "name": "createdTime",
+                        "type": "date",
+                        "label": "Created Time"
+                    },
+                    {
+                        "name": "Message ID",
+                        "type": "number",
+                        "label": "Message ID"
+                    },
+                    {
+                        "name": "Message",
+                        "type": "text",
+                        "label": "Message",
+                        "multiline": true
+                    },
+                    {
+                        "name": "User",
+                        "type": "text",
+                        "label": "User"
+                    },
+                    {
+                        "name": "Type",
+                        "type": "text",
+                        "label": "Type"
+                    },
+                    {
+                        "name": "Timestamp",
+                        "type": "text",
+                        "label": "Timestamp"
+                    },
+                    {
+                        "name": "Thread Timestamp",
+                        "type": "text",
+                        "label": "Thread Timestamp"
+                    },
+                    {
+                        "name": "Client Message ID",
+                        "type": "text",
+                        "label": "Client Message ID"
+                    },
+                    {
+                        "name": "Team",
+                        "type": "text",
+                        "label": "Team"
+                    },
+                    {
+                        "name": "Channel",
+                        "type": "text",
+                        "label": "Channel"
+                    },
+                    {
+                        "name": "Channel Type",
+                        "type": "text",
+                        "label": "Channel Type"
+                    },
+                    {
+                        "name": "Assistant Thread ID",
+                        "type": "text",
+                        "label": "Assistant Thread ID"
+                    },
+                    {
+                        "name": "Assistant Response",
+                        "type": "text",
+                        "label": "Assistant Response",
+                        "multiline": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 8,
+            "module": "slack:CreateMessage",
+            "version": 4,
+            "parameters": {
+                "__IMTCONN__": 3645358
+            },
+            "mapper": {
+                "text": "{{3.result}}",
+                "parse": false,
+                "mrkdwn": true,
+                "channel": "{{1.event.channel}}",
+                "icon_url": "https://storage.googleapis.com/sgplabs-general-storage/Untitled%20design%20(2).png",
+                "username": "FFmpeg Assistant",
+                "thread_ts": "{{1.event.ts}}",
+                "channelWType": "manualy"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 1800,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "parse": {
+                            "mode": "chose"
+                        },
+                        "mrkdwn": {
+                            "mode": "chose"
+                        },
+                        "link_names": {
+                            "mode": "chose"
+                        },
+                        "channelWType": {
+                            "label": "Enter manually"
+                        },
+                        "unfurl_links": {
+                            "mode": "chose"
+                        },
+                        "unfurl_media": {
+                            "mode": "chose"
+                        },
+                        "reply_broadcast": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "slack3"
+                            },
+                            "label": "My Slack (bot) connection (make)"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:slack2,slack3",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "channelWType",
+                        "type": "select",
+                        "label": "Enter a channel ID or name",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "manualy",
+                                "list"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "text",
+                        "type": "text",
+                        "label": "Text"
+                    },
+                    {
+                        "name": "blocks",
+                        "type": "text",
+                        "label": "Blocks"
+                    },
+                    {
+                        "name": "thread_ts",
+                        "type": "text",
+                        "label": "Thread message ID (time stamp)"
+                    },
+                    {
+                        "name": "reply_broadcast",
+                        "type": "boolean",
+                        "label": "Reply broadcast"
+                    },
+                    {
+                        "name": "link_names",
+                        "type": "boolean",
+                        "label": "Link names"
+                    },
+                    {
+                        "name": "parse",
+                        "type": "boolean",
+                        "label": "Parse message text"
+                    },
+                    {
+                        "name": "mrkdwn",
+                        "type": "boolean",
+                        "label": "Use markdown"
+                    },
+                    {
+                        "name": "unfurl_links",
+                        "type": "boolean",
+                        "label": "Unfurl primarily text-based content"
+                    },
+                    {
+                        "name": "unfurl_media",
+                        "type": "boolean",
+                        "label": "Unfurl media content"
+                    },
+                    {
+                        "name": "icon_emoji",
+                        "type": "text",
+                        "label": "Icon emoji"
+                    },
+                    {
+                        "name": "icon_url",
+                        "type": "url",
+                        "label": "Icon url"
+                    },
+                    {
+                        "name": "username",
+                        "type": "text",
+                        "label": "User name"
+                    },
+                    {
+                        "name": "channel",
+                        "type": "text",
+                        "label": "Channel ID or name",
+                        "required": true
+                    }
+                ],
+                "advanced": true
+            }
+        }
+    ],
+    "metadata": {
+        "instant": true,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "us1.make.com"
+    }
+}
